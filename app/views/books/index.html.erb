@@ -1,3 +1,8 @@
+<% if flash[:notice] %>
+  <p>
+    <%= flash[:notice] %>
+  </p>
+<% end %>
 <h1>index</h1>
 <table>
   <thead>
@@ -20,6 +25,16 @@
 </table>
 
 <h1>new</h1>
+<div>
+  <% if @book.errors.any? %>
+    <%= @book.errors.count %> errors prohibited this book from being saved:
+    <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 <%= form_with model: @book, url: books_path, method: :post  do |f| %>
   <form>
     <div>
